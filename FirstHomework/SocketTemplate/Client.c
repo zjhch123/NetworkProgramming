@@ -34,10 +34,12 @@ int main() {
 		return -1;
 	}
 
-	if(recv_len = recv(socket_fd, recvMsg, MAX_LINE, 0) == -1) {
+	if((recv_len = recv(socket_fd, recvMsg, MAX_LINE, 0)) == -1) {
 		printf("recv msg error!\n");
 		return -1;
 	}
+
+	recvMsg[recv_len] = '\0';
 	printf("recv msg: %s\n", recvMsg);
 
 	if(send(socket_fd, sendMsg, strlen(sendMsg), 0) < 0) {
