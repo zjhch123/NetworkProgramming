@@ -8,4 +8,4 @@ Util.o: Util.c
 	gcc -c $<
 
 clean:
-	-rm ServerSocket.o Util.o message.o
+	-rm ServerSocket ServerSocket.o Util.o message.o

@@ -5,4 +5,4 @@ ClientSocket.o: ClientSocket.c message.h
 message.o: message.c
 	gcc -c $<
 clean:
-	-rm ClientSocket.o message.o
+	-rm ClientSocket ClientSocket.o message.o
