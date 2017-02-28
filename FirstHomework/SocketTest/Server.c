@@ -8,7 +8,7 @@
 #define MAX_LENGTH 1024
 
 int main() {
-	int socket_fd, connect_fd;
+	int socket_fd, client_fd;
 	struct sockaddr_in serverAddr;
 	char repeat[] = "Hello!Client";
 	char buf[MAX_LENGTH];
@@ -36,18 +36,18 @@ int main() {
 	printf("listen...\n");
 
 	while(1) {
-		connect_fd = accept(socket_fd, NULL, NULL);
+		client_fd = accept(socket_fd, NULL, NULL);
 		
-		if(connect_fd == -1) {
+		if(client_fd == -1) {
 			printf("get connect error!\n");
 			continue;
 		}
 
-		if(send(connect_fd, repeat, strlen(repeat), 0) < 0) {
+		if(send(client_fd, repeat, strlen(repeat), 0) < 0) {
 			printf("send msg error!\n");
 		}
 
-		if((recv_length = recv(connect_fd, buf, MAX_LENGTH, 0)) < 0) {
+		if((recv_length = recv(client_fd, buf, MAX_LENGTH, 0)) < 0) {
 			printf("recv msg error!\n");
 		}
 
@@ -55,7 +55,7 @@ int main() {
 
 		printf("recv msg: %s\n", buf);
 
-		close(connect_fd);
+		close(client_fd);
 	}
 
 	close(socket_fd);

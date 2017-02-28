@@ -1,0 +1,8 @@
+ClientSocket: ClientSocket.o message.o
+	gcc -o $@ $^
+ClientSocket.o: ClientSocket.c message.h
+	gcc -c $<
+message.o: message.c
+	gcc -c $<
+clean:
+	-rm ClientSocket.o message.o

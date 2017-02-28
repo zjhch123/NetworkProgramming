@@ -9,14 +9,14 @@
 #define MAX_LENGTH 1024
 
 int main() {
-	int connect_fd;
+	int client_fd;
 	char recv_msg[MAX_LENGTH];
 	char repeat[] = "Hello!Server";
 	struct sockaddr_in serverAddr;
 	int recv_length;
 
-	connect_fd = socket(AF_INET, SOCK_STREAM, 0);
-	if(connect_fd == -1) {
+	client_fd = socket(AF_INET, SOCK_STREAM, 0);
+	if(client_fd == -1) {
 		printf("create socket error!\n");
 		return -1;
 	}
@@ -27,25 +27,25 @@ int main() {
 
 	inet_pton(AF_INET, IP, &serverAddr.sin_addr);
 
-	if(connect(connect_fd, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) < 0) {
+	if(connect(client_fd, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) < 0) {
 		printf("connect socket error!\n");
 		return -1;
 	}
 
 
-	if((recv_length = recv(connect_fd, recv_msg, MAX_LENGTH, 0)) < 0) {
+	if((recv_length = recv(client_fd, recv_msg, MAX_LENGTH, 0)) < 0) {
 		printf("recv msg error!\n");
 		return -1;
 	}
 	recv_msg[recv_length] = '\0';
 	printf("recv: %s\n", recv_msg);
 
-	if(send(connect_fd, repeat, strlen(repeat), 0) < 0) {
+	if(send(client_fd, repeat, strlen(repeat), 0) < 0) {
 		printf("send msg error!\n");
 		return -1;
 	}
 
-	close(connect_fd);
+	close(client_fd);
 
 	return 0;
 }

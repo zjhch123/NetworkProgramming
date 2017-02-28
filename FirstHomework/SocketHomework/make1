@@ -1,0 +1,11 @@
+ServerSocket: ServerSocket.o Util.o message.o
+	gcc -o $@ $^
+ServerSocket.o: ServerSocket.c Util.h message.h
+	gcc -c $<
+message.o: message.c
+	gcc -c $<
+Util.o: Util.c
+	gcc -c $<
+
+clean:
+	-rm ServerSocket.o Util.o message.o
